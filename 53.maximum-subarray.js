@@ -10,30 +10,19 @@
  * @return {number}
  */
 var maxSubArray = function (nums) {
-    const sum = (x) => x.reduce((a, b) => a + b);
-    let max = sum(nums);
-    // return sum(nums);
-    if (nums.length === 1) {
-        return nums[0];
-    }
-    // nums.forEach(
-    //     (n)=> {
-    //         if (n>max) {
-    //             max=n
-    //         }
-    //     }
-    // )
-    for (let i = 1; i < nums.length; i++) {
-        for (let ii = 0; ii < nums.length; ii++) {
-            const sub_nums = nums.slice(ii, ii + i);
-            const the_sum = sum(sub_nums);
-            // console.log(sub_nums, the_sum);
-            if (the_sum > max) {
-                max = the_sum;
-            }
+    /**
+     * https://leetcode.com/problems/maximum-subarray/discuss/561900/Javascript-and-C%2B%2B-solutions
+     */
+    let maxSubArray = (A) => {
+        let sum = A[0],
+            max = A[0];
+        for (let i = 1; i < A.length; ++i) {
+            sum = Math.max(sum + A[i], A[i]);
+            max = Math.max(max, sum);
         }
-    }
-    return max;
+        return max;
+    };
+    return maxSubArray(nums);
 };
 
 // @lc code=end
