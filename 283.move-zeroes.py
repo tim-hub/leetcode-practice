@@ -39,16 +39,26 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        for i in range(len(nums)):
+        # for i in range(len(nums)):
+        #     if nums[i] == 0:
+        #         for ii in range(i+1, len(nums)):
+        #             if (nums[ii] != 0):
+        #                 tmp = nums[ii]
+        #                 nums[ii] = nums[i]
+        #                 nums[i] = tmp
+        #                 break
+        #               # out of the loop
+        count = 0
+        i = 0
+        length = len(nums)
+        while i < length:
             if nums[i] == 0:
-                for ii in range(i+1, len(nums)):
-                    if (nums[ii] != 0):
-                        tmp = nums[ii]
-                        nums[ii] = nums[i]
-                        nums[i] = tmp
-                        break
-                        # ii = len(nums)
-                        # out of the loop
+                count += 1
+                nums.pop(i)
+                length -= 1
+                i -= 1
+            i += 1
+        nums += [0]*count
 
         return None
 
