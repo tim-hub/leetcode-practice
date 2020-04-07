@@ -47,7 +47,9 @@ class Solution:
         #                 nums[ii] = nums[i]
         #                 nums[i] = tmp
         #                 break
-        #               # out of the loop
+        #             # out of the loop
+
+        # https://leetcode.com/problems/move-zeroes/discuss/563755/Easy-Python-O(N)-Beats-97-Of-Solutions-in-Runtime
         count = 0
         i = 0
         length = len(nums)
