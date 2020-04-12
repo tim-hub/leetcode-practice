@@ -54,16 +54,16 @@ class TreeNode:
 class Solution:
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
 
-        def get_length(node: TreeNode):
-
+        # https://leetcode.com/problems/diameter-of-binary-tree/discuss/574083/Python3-recursive-solution
+        def fn(node):
+            """Return length+1 and diameter rooted at node"""
             if not node:
-                return 0
-            elif not node.left and not node.right:
-                return 1
-            else:
-                return get_length(node)
+                return (0, 0)
+            l1, d1 = fn(node.left)
+            l2, d2 = fn(node.right)
+            return 1 + max(l1, l2), max(d1, d2, l1+l2)
 
-        return 1 + get_length(root.left) + get_length(root.right)
+        return fn(root)[1]
 
 # @lc code=end
 
