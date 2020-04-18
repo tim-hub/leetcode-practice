@@ -39,19 +39,28 @@
 class Solution:
     def minPathSum(self, grid: List[List[int]]) -> int:
         # depth first
+        def gotoRight(subGrid: List[List[int]]) -> List[List[int]]:
+            return list(map(lambda g: g[1:], subGrid))
+
+        def gotoDown(subGrid: List[List[int]]) -> List[List[int]]:
+            return subGrid[1:]
+
         def findMin(subGrid: List[List[int]]) -> int:
+            # print(subGrid)
             if (len(subGrid) == 1 and len(subGrid[0]) == 1):
-                return 1
+                return subGrid[0][0]
 
             if (len(subGrid) == 1):
-                return findMin([subGrid[0][1:]])
+                return subGrid[0][0]+findMin(gotoRight(subGrid))
             if (len(subGrid[0]) == 1):
-                return findMin([subGrid[1:]])
+                return subGrid[0][0]+findMin(gotoDown(subGrid))
 
-            return min(
-                findMin([subGrid[0][1:]]),
-                findMin([subGrid[1:]])
+            r = min(
+                subGrid[0][0]+findMin(gotoRight(subGrid)),
+                subGrid[0][0]+findMin(gotoDown(subGrid))
             )
+            # print(r)
+            return r
 
         return findMin(grid)
 
