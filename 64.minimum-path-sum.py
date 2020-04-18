@@ -37,32 +37,31 @@
 
 
 class Solution:
+
     def minPathSum(self, grid: List[List[int]]) -> int:
-        # depth first
-        def gotoRight(subGrid: List[List[int]]) -> List[List[int]]:
-            return list(map(lambda g: g[1:], subGrid))
 
-        def gotoDown(subGrid: List[List[int]]) -> List[List[int]]:
-            return subGrid[1:]
+        r = len(grid)
+        if r == 0:
+            return 0
+        c = len(grid[0])
+        if c == 0:
+            return 0
+        cache = {(0, 0): grid[0][0]}
 
-        def findMin(subGrid: List[List[int]]) -> int:
-            # print(subGrid)
-            if (len(subGrid) == 1 and len(subGrid[0]) == 1):
-                return subGrid[0][0]
+        return self.minPath(grid, r - 1, c - 1, cache)
 
-            if (len(subGrid) == 1):
-                return subGrid[0][0]+findMin(gotoRight(subGrid))
-            if (len(subGrid[0]) == 1):
-                return subGrid[0][0]+findMin(gotoDown(subGrid))
+    def minPath(self, grid, i, j, cache):
+        key = (i, j)
+        if key in cache:
+            return cache[key]
+        if i < 0 or j < 0:
+            return math.inf
+        cache[key] = min(self.minPath(grid, i - 1, j, cache),
+                         self.minPath(grid, i, j - 1, cache)) + grid[i][j]
+        return cache[key]
 
-            r = min(
-                subGrid[0][0]+findMin(gotoRight(subGrid)),
-                subGrid[0][0]+findMin(gotoDown(subGrid))
-            )
-            # print(r)
-            return r
-
-        return findMin(grid)
+    # using caching to sole problem f time out
+    # https://leetcode.com/problems/minimum-path-sum/discuss/380979/Simply-Simple-Python-Solution-DP-and-Recursion-with-memoization-both
 
 
 # @lc code=end
